@@ -1,0 +1,110 @@
+#include<iostream>
+#include <ctime> //для подсчета времени процесса
+using namespace std;
+
+class MergeSort{
+    private:
+        void partition(int [],int [],int ,int);
+        void sortit(int [],int [],int,int,int);
+        void showresult();
+        void gettime(int);
+};
+
+ 
+void MergeSort::partition(int a[], int b[], int low, int high)
+//деление элементов по частям и их последующее отправление на сортировку
+  {
+    int mid;
+    if(low<high){
+        mid=(low+high)/2;
+        // sort the left array
+        partition(a,b,low,mid);
+ 
+        // sort the right array
+        partition(a,b,mid+1,high);
+ 
+ 
+        sortit(a,b,low,mid,high);
+ 
+    }
+  }
+void MergeSort::sortit(int *a, int *b, int low, int mid, int high){
+//непосредственная сортировка
+    int h,i,j;
+    h=low;
+    i=low;
+    j=mid+1;
+    
+    int k;
+ 
+    while((h<=mid)&&(j<=high))
+    {
+        if(a[h]<=a[j])
+        {
+            b[i]=a[h];
+            h++;
+        }
+        else
+        {
+            b[i]=a[j];
+            j++;
+        }
+        i++;
+    }
+    if(h>mid)
+    {
+        for(k=j; k<=mid; k++)
+        {
+            b[i]=a[k];
+            i++;
+        }
+    }
+    else
+    {
+        for(k=h; k<=mid; k++)
+        {
+            b[i]=a[k];
+            i++;
+        }
+    }
+    for(k=low; k<=high; k++) 
+    {
+        a[k]=b[k];
+    }
+}
+
+void MergeSort::showresult(){//просмотр результата
+    cout<<"The sorted array is"<<endl;
+    for(int i = 0 ; i < h; i++)
+    {
+        cout<<a[i]<<" ";
+    }
+}
+ 
+void MergeSort::gettime(int t)//функция подсчета времени
+ {
+    t=clock();
+    cout<<"The time of the process is:"<<t<<"or"<<(float)t/CLOCKS_PER_SEC<<"seconds"<<endl;
+ }
+ 
+void main()//наша основная функция
+{   
+    int a[12];
+    int h=12;
+    
+    int num;
+    
+    cout<<"Enter the array: ";
+    for(int i=0;i<h;i++)
+        {
+        cin>>a[i];
+        }
+ 
+    num = sizeof(a)/sizeof(int);
+ 
+    int b[num];
+    MergeSort.partition(MergeSort.a,MergeSort.b,0,MergeSort.num-1);
+    
+    MergeSort.showresult();
+    MergeSort.gettime();
+}
